@@ -9,7 +9,8 @@ class Athlete extends Model
 
     protected $fillable = [
         'name',
-        'genre'
+        'genre',
+        'country_id'
     ];
 
     public function country()
@@ -17,7 +18,7 @@ class Athlete extends Model
         return $this->belongsTo('App\Country');
     }
 
-    public function category()
+    public function categories()
     {
         return $this->belongsToMany('App\Category');
     }

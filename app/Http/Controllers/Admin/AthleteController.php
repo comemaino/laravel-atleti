@@ -47,9 +47,10 @@ class AthleteController extends Controller
         $athlete->fill($data);
         $athlete->save();
 
-        if (isset($data['countries'])) {
-            $athlete->countries()->sync($data['countries']);
+        if (isset($data['categories'])) {
+            $athlete->categories()->sync($data['categories']);
         }
+        
 
         return redirect()->route('admin.athletes.show', ['athlete' =>$athlete->id]);
     }
@@ -62,7 +63,7 @@ class AthleteController extends Controller
      */
     public function show($id)
     {
-        //
+        dd('ciao sono atleta creato');
     }
 
     /**

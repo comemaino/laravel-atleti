@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Athlete;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -69,7 +70,12 @@ class AthleteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->getValidationRules());
+        $data = $request->all();
+        $athlete = Athlete::findOrFail($id);
+        $athlete->update($data);
+
+        return redirect()->route('admin.athletes.show', ['athlete' => $athlete->id]);
     }
 
     /**
@@ -81,5 +87,13 @@ class AthleteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getValidationRules()
+    {
+        return [
+            'name' => 'required',
+            'genre' => 'required',
+        ];
     }
 }

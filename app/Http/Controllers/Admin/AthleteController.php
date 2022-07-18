@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Athlete;
 use App\Category;
+use App\Country;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,9 @@ class AthleteController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $countries = Country::all();
+        return view('admin.athletes.create', compact('categories', 'countries'));
     }
 
     /**
@@ -42,7 +45,19 @@ class AthleteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->getValidationRules());
+        $data = $request->all();
+
+        $athlete = new Athlete();
+        $athlete->fill($data);
+        $athlete->save();
+
+        if (isset($data['categories'])) {
+            $athlete->categories()->sync($data['categories']);
+        }
+        
+
+        return redirect()->route('admin.athletes.show', ['athlete' =>$athlete->id]);
     }
 
     /**
@@ -53,7 +68,7 @@ class AthleteController extends Controller
      */
     public function show($id)
     {
-        //
+        dd('ciao sono atleta creato');
     }
 
     /**

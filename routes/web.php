@@ -22,6 +22,7 @@ Route::middleware('auth')
     ->prefix('admin')
     ->group(function () {
         Route::get('/', 'HomeController@index')->name('admin.home');
+        Route::resource('athletes', 'AthleteController');
     });
 
 Route::get('{any?}', function () {

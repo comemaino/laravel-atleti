@@ -17,7 +17,12 @@ class AthleteController extends Controller
      */
     public function index()
     {
-        //
+        $athletes =  Athlete::all();
+        $categories = Category::all();
+
+        
+
+        return view('admin.athletes.index', compact('athletes', 'categories'));
     }
 
     /**
